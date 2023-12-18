@@ -50,9 +50,12 @@ jobs:
           name: my-artifact
       - name: Deploy to next stable
         run: |    
+          echo ======
+          ls
           echo Pushing to stable $KNY_VAR ${{ vars.KNY_VAR }}
           unzip package.zip
           echo Unzipped done
+          echo =====
           ls
         
   deploy-prod:
