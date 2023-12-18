@@ -34,7 +34,7 @@ jobs:
           zip package.zip package.txt 
 
       - name: Upload artifact to github actions
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: my-artifact
           path: package.zip
