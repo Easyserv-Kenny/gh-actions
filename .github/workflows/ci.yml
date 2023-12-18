@@ -34,3 +34,17 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+  deploy-stable:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to next stable
+        run: echo Pushing to stable
+  
+  deploy-prod:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to prod
+        run: echo Pushing to prod
