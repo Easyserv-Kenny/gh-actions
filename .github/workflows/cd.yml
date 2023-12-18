@@ -6,8 +6,9 @@ on:
     types: [completed]
 
 jobs:
-  on-success:
+  deploy-stable:
     runs-on: ubuntu-latest
+    environment: stable
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - run: echo 'The triggering workflow passed'
@@ -34,9 +35,17 @@ jobs:
 
       - name: 'Unzip artifact'
         run: unzip my-artifact.zip
-      
-  on-failure:
+        
+      - name: Deploy to stable
+        run: |    
+          echo Deploying
+          ls
+          echo Pushing to stable $KNY_VAR ${{ vars.KNY_VAR }}
+        
+  deploy-prod:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    environment: prod
+    needs: [deploy-stable]
     steps:
-      - run: echo 'The triggering workflow failed'
+      - name: Deploy to prod
+        run: echo Pushing to prod $KNY_VAR ${{ vars.KNY_VAR }
