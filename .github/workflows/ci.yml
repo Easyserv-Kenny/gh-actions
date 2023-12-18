@@ -39,11 +39,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: stable
     needs: build
-
     steps:
       - name: Deploy to next stable
-        run: echo Pushing to stable
-  
+        run: echo Pushing to stable $KNY_VAR
+        
   deploy-prod:
     runs-on: ubuntu-latest
     environment: prod
@@ -51,4 +50,4 @@ jobs:
     
     steps:
       - name: Deploy to prod
-        run: echo Pushing to prod
+        run: echo Pushing to prod $KNY_VAR
