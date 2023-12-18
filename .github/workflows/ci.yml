@@ -38,31 +38,3 @@ jobs:
         with:
           name: my-artifact
           path: package.zip
-
-  deploy-stable:
-    runs-on: ubuntu-latest
-    environment: stable
-    needs: build
-    steps:      
-      - name: Get artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: my-artifact
-      - name: Deploy to next stable
-        run: |    
-          echo ======
-          ls
-          echo Pushing to stable $KNY_VAR ${{ vars.KNY_VAR }}
-          unzip package.zip
-          echo Unzipped done
-          echo =====
-          ls
-        
-  deploy-prod:
-    runs-on: ubuntu-latest
-    environment: prod
-    needs: [build, deploy-stable]
-    
-    steps:
-      - name: Deploy to prod
-        run: echo Pushing to prod $KNY_VAR ${{ vars.KNY_VAR }}
