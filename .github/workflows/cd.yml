@@ -52,7 +52,7 @@ jobs:
 
   deploy-prod-no-pipeline:
     runs-on: ubuntu-latest
-    environment: stable
+    environment: prod
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:        
       - name: Deploy to prod
