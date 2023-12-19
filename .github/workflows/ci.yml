@@ -38,6 +38,3 @@ jobs:
         with:
           name: release-artifact
           path: gh-actions-release.zip
-
-  call-workflow-1-in-local-repo:    
-    uses: EasyServ-Kenny/gh-actions/.github/workflows/cd.yml@main
