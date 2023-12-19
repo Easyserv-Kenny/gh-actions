@@ -18,7 +18,7 @@ jobs:
           name: my-artifact
           github-token: ${{ secrets.ARTIFACT_PAT }} # token with actions:read permissions on target repo
           repository: EasyServ-Kenny/gh-actions
-          run-id: context.payload.workflow_run.id
+          run-id: ${{ context.payload.workflow_run.id }}
     
       - name: 'Download artifact'
         uses: actions/github-script@v6
