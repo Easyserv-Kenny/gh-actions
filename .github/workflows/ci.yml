@@ -3,8 +3,7 @@
 name: Build
 
 env:
-  PRODUCT_NAME: kenny-test
-  AWS_S3_BUILD_BUCKET: test-kenny-easyserv
+  PRODUCT_NAME: gh-actions-product
 
 # Controls when the workflow will run
 on:
@@ -36,7 +35,7 @@ jobs:
         id: Set_variables
         run: |
           echo "BUILD_VERSION=$(date --utc +%Y-%m-%d)-build-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
-          echo "BUILD_NAME=HelloWorld_$(date --utc +%Y-%m-%d)-build-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+          echo "BUILD_NAME=${{ env.PRODUCT_NAME }}_$(date --utc +%Y-%m-%d)-build-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
           echo "BUILD_SHA1=$(git log -1 --format='%H')" >> $GITHUB_ENV
 
       - name: Upload artifact to github actions
