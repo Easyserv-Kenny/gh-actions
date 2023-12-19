@@ -29,14 +29,16 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: ${{ env.PRODUCT_NAME }}*
+          path: deploy
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: EasyServ-Kenny/gh-actions
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: 'Unzip artifact'
         run: |
+          cd deploy
           ls
-          unzip *.zip
+          unzip *
           ls
 
   deploy-stable:
@@ -49,6 +51,7 @@ jobs:
       - name: 'Download artifacts from CI workflow'
         uses: actions/download-artifact@v4
         with:
+          path: deploy
           pattern: ${{ env.PRODUCT_NAME }}*
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: EasyServ-Kenny/gh-actions
@@ -56,8 +59,9 @@ jobs:
 
       - name: 'Unzip artifact'
         run: |
+          cd deploy
           ls
-          unzip *.zip
+          unzip *
           ls
         
       - name: Deploy to stable
