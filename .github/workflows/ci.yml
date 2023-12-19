@@ -32,8 +32,15 @@ jobs:
           echo Build build > package.txt
           zip gh-actions-release.zip package.txt 
 
+      - name: Set environment variables
+        id: Set_variables
+        run: |
+          echo "BUILD_VERSION=$(date --utc +%Y-%m-%d)-build-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+          echo "BUILD_NAME=HelloWorld_$(date --utc +%Y-%m-%d)-build-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+          echo "BUILD_SHA1=$(git log -1 --format='%H')" >> $GITHUB_ENV
+
       - name: Upload artifact to github actions
         uses: actions/upload-artifact@v4
         with:
-          name: release-artifact
+          name: ${{ env.BUILD_NAME }}
           path: gh-actions-release.zip
