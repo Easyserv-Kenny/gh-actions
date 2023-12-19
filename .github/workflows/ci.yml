@@ -31,10 +31,10 @@ jobs:
       - name: Zip package
         run: |
           echo Build build > package.txt
-          zip package.zip package.txt 
+          zip gh-actions-release.zip package.txt 
 
       - name: Upload artifact to github actions
         uses: actions/upload-artifact@v4
         with:
-          name: my-artifact
-          path: package.zip
+          name: release-artifact
+          path: gh-actions-release.zip
