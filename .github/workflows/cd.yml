@@ -37,7 +37,7 @@ jobs:
       - name: 'Unzip artifact'
         run: |
           ls
-          unzip my-artifact
+          unzip gh-actions-release.zip
           ls
 
   deploy-stable:
