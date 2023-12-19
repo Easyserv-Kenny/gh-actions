@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: stable
     needs: [deploy-unstable]
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'fail' }}
     steps:
 
       - name: 'Download artifacts from CI workflow'
@@ -88,6 +88,7 @@ jobs:
           echo Pushing to stable $KNY_VAR ${{ vars.KNY_VAR }}
 
   deploy-prod:
+    if: ${{ github.event.workflow_run.conclusion == 'fail' }}
     runs-on: ubuntu-latest
     environment: prod
     needs: [deploy-stable]
