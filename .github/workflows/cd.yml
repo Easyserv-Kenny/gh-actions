@@ -36,7 +36,7 @@ jobs:
       - name: 'Unzip artifact'
         run: |
           ls
-          unzip gh-actions-release.zip
+          unzip *.zip
           ls
 
   deploy-stable:
@@ -49,7 +49,7 @@ jobs:
       - name: 'Download artifacts from CI workflow'
         uses: actions/download-artifact@v4
         with:
-          name: release-artifact
+          pattern: ${{ env.PRODUCT_NAME }}*
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: EasyServ-Kenny/gh-actions
           run-id: ${{ github.event.workflow_run.id }}
@@ -57,7 +57,7 @@ jobs:
       - name: 'Unzip artifact'
         run: |
           ls
-          unzip gh-actions-release.zip
+          unzip *.zip
           ls
         
       - name: Deploy to stable
