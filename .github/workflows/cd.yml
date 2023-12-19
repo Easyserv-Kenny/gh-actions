@@ -1,5 +1,5 @@
 name: Deploy
-
+run-name: Deploy of ${{ github.event.workflow_run.name }} ${{ github.event.workflow_run.run_number }} - ${{ github.event.workflow_run.display_title }}
 
 on:
   workflow_run:
