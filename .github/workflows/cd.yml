@@ -1,6 +1,4 @@
-name: Deploy to AWS
-
-run-name: Deploy ${{ github.event.workflow_run.name }}
+name: Deploy
 
 on:
   workflow_run:
@@ -8,6 +6,15 @@ on:
     types: [completed]
 
 jobs:
+
+  write-context:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Inspect contexts
+      run: |
+        echo "The github context is:"
+        echo "${{ toJson(github) }}"
+
   deploy-stable:
     runs-on: ubuntu-latest
     environment: stable
