@@ -43,3 +43,9 @@ jobs:
         with:
           name: ${{ env.BUILD_NAME }}
           path: gh-actions-release.zip
+
+      - name: Upload my artifact to github actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: gh-actions-release.zip
