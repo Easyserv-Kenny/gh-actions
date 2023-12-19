@@ -57,7 +57,7 @@ jobs:
       - name: 'Unzip artifact'
         run: |
           ls
-          unzip *
+          unzip ${{ env.PRODUCT_NAME }}*
           ls
         
       - name: Deploy to stable
