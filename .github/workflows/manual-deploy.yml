@@ -9,7 +9,7 @@ on:
         type: environment
         required: true
 
-run-name: Deploy of '${{ github.event.inputs.build }}' to ${{ github.event.inputs.enviroment }}
+run-name: ${{ github.event.inputs.enviroment }} -> ${{ github.event.inputs.build }}
 
 jobs:
   deploy:
