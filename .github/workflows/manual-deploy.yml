@@ -9,6 +9,8 @@ on:
         type: environment
         required: true
 
+run-name: Deploy of '${{ github.event.inputs.build }}' to ${{ github.event.inputs.enviroment }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
