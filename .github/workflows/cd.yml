@@ -29,7 +29,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           # pattern: ${{ env.PRODUCT_NAME }}*
-          name: my-artifact
+          pattern: my-artifact
+          merge-multiple: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: EasyServ-Kenny/gh-actions
           run-id: ${{ github.event.workflow_run.id }}
