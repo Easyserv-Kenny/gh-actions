@@ -1,17 +1,17 @@
-name: CD
+name: Deploy to AWS
+
+run-name: Deploy ${{ github.event.workflow_run.name }}
 
 on:
   workflow_run:
     workflows: [CI]
     types: [completed]
 
-  workflow_call:
-
 jobs:
   deploy-stable:
     runs-on: ubuntu-latest
     environment: stable
-    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
 
       - name: 'Download artifacts from CI workflow'
