@@ -41,6 +41,25 @@ jobs:
           unzip gh-actions-release.zip
           ls
 
+  deploy-stable-no-pipeline:
+    runs-on: ubuntu-latest
+    environment: stable
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:        
+      - name: Deploy to stable
+        run: |
+          echo Deploying
+
+  deploy-prod-no-pipeline:
+    runs-on: ubuntu-latest
+    environment: stable
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:        
+      - name: Deploy to prod
+        run: |
+          echo Deploying
+
+
   deploy-stable:
     runs-on: ubuntu-latest
     environment: stable
