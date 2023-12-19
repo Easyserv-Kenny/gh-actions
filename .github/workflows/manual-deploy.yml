@@ -1,0 +1,31 @@
+on:
+  workflow_dispatch:
+    inputs:
+      build:
+        description: 'Build version'
+        required: true
+      environment:
+        description: 'Target environment'
+        type: environment
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      
+      # Download artifact from a different workflow
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ci.yml
+          workflow_conclusion: success
+          name: ${{ github.event.inputs.build }}
+          search_artifacts: true
+          skip_unpack: false
+          if_no_artifact_found: fail
+
+      - name: Deploy
+        run: echo Hello 
