@@ -1,6 +1,9 @@
 name: Deploy
 run-name: Deploy of ${{ github.event.workflow_run.name }} ${{ github.event.workflow_run.run_number }} - ${{ github.event.workflow_run.display_title }}
 
+env:
+  PRODUCT_NAME: gh-actions-product
+
 on:
   workflow_run:
     workflows: [Build]
@@ -25,7 +28,7 @@ jobs:
       - name: 'Download artifacts from CI workflow'
         uses: actions/download-artifact@v4
         with:
-          name: release-artifact
+          pattern: ${{ env.PRODUCT_NAME }}*
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: EasyServ-Kenny/gh-actions
           run-id: ${{ github.event.workflow_run.id }}
