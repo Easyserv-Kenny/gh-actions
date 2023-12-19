@@ -3,7 +3,7 @@ run-name: Deploy of ${{ github.event.workflow_run.name }} ${{ github.event.workf
 
 on:
   workflow_run:
-    workflows: [CI]
+    workflows: [Build]
     types: [completed]
 
 jobs:
