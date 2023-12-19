@@ -16,6 +16,26 @@ jobs:
         echo "The github context is:"
         echo "${{ toJson(github) }}"
 
+  deploy-unstable:
+    runs-on: ubuntu-latest
+    environment: stable
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+
+      - name: 'Download artifacts from CI workflow'
+        uses: actions/download-artifact@v4
+        with:
+          name: release-artifact
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: EasyServ-Kenny/gh-actions
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: 'Unzip artifact'
+        run: |
+          ls
+          unzip gh-actions-release.zip
+          ls
+
   deploy-stable:
     runs-on: ubuntu-latest
     environment: stable
