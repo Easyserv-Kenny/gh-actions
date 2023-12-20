@@ -7,6 +7,7 @@ on:
       environment:
         description: 'Target environment'
         type: environment
+        default: unstable
         required: true
 
 run-name: ${{ github.event.inputs.environment }} -> ${{ github.event.inputs.build }}
@@ -16,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     # environment: ${{ inputs.environment }}
     steps:
-      
       # Download artifact from a different workflow
       - name: Download artifact
         id: download-artifact
@@ -28,12 +28,19 @@ jobs:
           search_artifacts: true
           skip_unpack: false
           if_no_artifact_found: fail
+      
+      - name: Read version.json
+        run: echo "PACKAGE_JSON=$(jq -c . < version.json)" >> $GITHUB_ENV
+
+      - name: Create deployment
+        uses: chrnorm/deployment-action@v2
+        with:
+          ref: ${{ fromJson(env.PACKAGE_JSON).sha1 }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: ${{ github.event.inputs.environment }}
 
       - name: Deploy
-        run: | 
-          ls
-          echo Hello 
-      - run: echo "PACKAGE_JSON=$(jq -c . < version.json)" >> $GITHUB_ENV
-      - run: echo '${{ fromJson(env.PACKAGE_JSON).sha1 }}'
+        run: echo Deploy deploy   
+      
 
           
