@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       deployments: write
-    # environment: ${{ inputs.environment }}
+      
     steps:
       # Download artifact from a different workflow
       - name: Download artifact
@@ -35,6 +35,7 @@ jobs:
         run: echo "PACKAGE_JSON=$(jq -c . < version.json)" >> $GITHUB_ENV
 
       - name: Create deployment
+        id: create_deployment
         uses: chrnorm/deployment-action@v2
         with:
           ref: ${{ fromJson(env.PACKAGE_JSON).sha1 }}
@@ -42,7 +43,23 @@ jobs:
           environment: ${{ github.event.inputs.environment }}
 
       - name: Deploy
-        run: echo Deploy deploy   
+        run: echo Deploy deploy
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ github.token }}
+          deployment-id: ${{ steps.create_deployment.outputs.deployment_id }}
+          state: 'success'
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ github.token }}
+          deployment-id: ${{ steps.create_deployment.outputs.deployment_id }}
+          state: 'failure'
       
 
           
