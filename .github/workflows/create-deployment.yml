@@ -23,5 +23,6 @@ jobs:
         name: Create GitHub deployment
         id: deployment
         with:
+          ref: 539f63f555a83f9a74c6a53a6d0afcc221c41559
           token: '${{ secrets.GITHUB_TOKEN }}'
           environment: unstable
