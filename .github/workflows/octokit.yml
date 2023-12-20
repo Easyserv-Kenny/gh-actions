@@ -16,11 +16,13 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: get_latest_release
         with:
-          route: GET /repos/Easyserv-Kenny/gh-actions/releases/latest
+          route: GET /repos/{owner}/{repo}/releases/latest
           owner: octokit
           repo: request-action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: "echo latest release: '${{ steps.get_latest_release.outputs.data }}'"
+
+
 
 # /repos/{owner}/{repo}/actions/runs/{run_id}
