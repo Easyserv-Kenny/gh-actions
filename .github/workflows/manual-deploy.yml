@@ -33,4 +33,7 @@ jobs:
         run: | 
           ls
           echo Hello 
+      - run: echo "PACKAGE_JSON=$(jq -c . < version.json)" >> $GITHUB_ENV
+      - run: echo '${{ fromJson(env.PACKAGE_JSON).sha1 }}'
+
           
