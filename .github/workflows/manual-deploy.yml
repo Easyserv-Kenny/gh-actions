@@ -14,7 +14,7 @@ run-name: ${{ github.event.inputs.environment }} -> ${{ github.event.inputs.buil
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    # environment: ${{ inputs.environment }}
     steps:
       
       # Download artifact from a different workflow
@@ -30,4 +30,7 @@ jobs:
           if_no_artifact_found: fail
 
       - name: Deploy
-        run: echo Hello 
+        run: | 
+          ls
+          echo Hello 
+          
