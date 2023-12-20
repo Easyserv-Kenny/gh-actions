@@ -28,8 +28,8 @@ jobs:
       - name: 'Download artifacts from CI workflow'
         uses: actions/download-artifact@v4
         with:
-          # pattern: ${{ env.PRODUCT_NAME }}*
-          pattern: my-artifact
+          pattern: ${{ env.PRODUCT_NAME }}*
+          # pattern: my-artifact
           merge-multiple: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: EasyServ-Kenny/gh-actions
