@@ -15,6 +15,8 @@ run-name: ${{ github.event.inputs.environment }} -> ${{ github.event.inputs.buil
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      deployments: write
     # environment: ${{ inputs.environment }}
     steps:
       # Download artifact from a different workflow
