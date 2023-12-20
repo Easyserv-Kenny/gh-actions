@@ -1,5 +1,5 @@
 name: Deploy
-run-name: "Deploy #${{ github.event.workflow_run.run_number }} - ${{ github.event.workflow_run.display_title }}
+run-name: "Deploy #${{ github.event.workflow_run.run_number }} - ${{ github.event.workflow_run.display_title }}"
 
 env:
   PRODUCT_NAME: gh-actions-product
