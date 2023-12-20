@@ -18,6 +18,10 @@ jobs:
       run: |
         echo "The github context is:"
         echo "${{ toJson(github) }}"
+        echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+    - name: Echo current date
+      run: echo $NOW
+
 
   deploy-unstable:
     runs-on: ubuntu-latest
