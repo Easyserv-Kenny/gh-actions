@@ -26,11 +26,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Zip package
-        run: |
-          echo Build build > package.txt
-          zip gh-actions-release.zip package.txt 
-
       - name: Set environment variables
         id: Set_variables
         run: |
@@ -38,14 +33,14 @@ jobs:
           echo "BUILD_NAME=${{ env.PRODUCT_NAME }}_$(date --utc +%Y-%m-%d)-build-$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
           echo "BUILD_SHA1=$(git log -1 --format='%H')" >> $GITHUB_ENV
 
+      - name: Create package
+        run: |
+          echo "{\"build\": \"${{ env.BUILD_VERSION }}\", \"sha1\": \"${{ env.BUILD_SHA1 }}\"}" > sversion.json
+          echo Build build > package.txt
+          zip gh-actions-release.zip package.txt 
+
       - name: Upload artifact to github actions
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.BUILD_NAME }}
-          path: gh-actions-release.zip
-
-      - name: Upload my artifact to github actions
-        uses: actions/upload-artifact@v4
-        with:
-          name: my-artifact
           path: gh-actions-release.zip
