@@ -38,9 +38,11 @@ jobs:
         id: create_deployment
         uses: chrnorm/deployment-action@v2
         with:
+          actor: ${{ github.actor }}
           ref: ${{ fromJson(env.PACKAGE_JSON).sha1 }}
           token: ${{ secrets.GITHUB_TOKEN }}
           environment: ${{ github.event.inputs.environment }}
+          description: 'Testing description as well, will it work?'
 
       - name: Deploy
         run: echo Deploy deploy
