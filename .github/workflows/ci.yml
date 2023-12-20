@@ -35,9 +35,9 @@ jobs:
 
       - name: Create package
         run: |
-          echo "{\"build\": \"${{ env.BUILD_VERSION }}\", \"sha1\": \"${{ env.BUILD_SHA1 }}\"}" > sversion.json
+          echo "{\"build\": \"${{ env.BUILD_VERSION }}\", \"sha1\": \"${{ env.BUILD_SHA1 }}\"}" > version.json
           echo Build build > package.txt
-          zip gh-actions-release.zip package.txt 
+          zip gh-actions-release.zip .
 
       - name: Upload artifact to github actions
         uses: actions/upload-artifact@v4
