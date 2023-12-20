@@ -35,64 +35,36 @@ jobs:
           pattern: ${{ env.PRODUCT_NAME }}*
           merge-multiple: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: EasyServ-Kenny/gh-actions
+          repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: 'Deploy'
-        run: cat version.json
+        run: | 
+          cat version.json
+          echo "NOWUNSTABLE=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      - run: echo $NOWUNSTABLE
           
 
-  deploy-stable-no-pipeline:
+  deploy-stable:
     runs-on: ubuntu-latest
     environment: stable
+    needs: [deploy-unstable]
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:        
-      - name: Deploy to stable
-        run: |
-          echo Deploying
+      - name: 'Deploy'
+        run: | 
+          cat version.json
+          echo "NOWSTABLE=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      - run: echo $NOWSTABLE
 
-  deploy-prod-no-pipeline:
+  deploy-prod:
     runs-on: ubuntu-latest
     environment: prod
+    needs: [deploy-stable]
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:        
-      - name: Deploy to prod
-        run: |
-          echo Deploying
-
-
-  #deploy-stable:
-  #  runs-on: ubuntu-latest
-  #  environment: stable
-  #  needs: [deploy-unstable]
-  #  if: ${{ github.event.workflow_run.conclusion == 'fail' }}
-  #  steps:
-
-   #   - name: 'Download artifacts from CI workflow'
-   #     uses: actions/download-artifact@v4
-   #     with:
-   #       pattern: ${{ env.PRODUCT_NAME }}*
-   #       github-token: ${{ secrets.GITHUB_TOKEN }}
-   #       repository: EasyServ-Kenny/gh-actions
-   #       run-id: ${{ github.event.workflow_run.id }}
-
-    #  - name: 'Unzip artifact'
-    #    run: |
-    #      ls
-    #      unzip ${{ env.PRODUCT_NAME }}*
-    #      ls
-        
-     # - name: Deploy to stable
-     #   run: |
-     #     echo Deploying
-     #     ls
-     #     echo Pushing to stable $KNY_VAR ${{ vars.KNY_VAR }}
-
-  #deploy-prod:
-  #  if: ${{ github.event.workflow_run.conclusion == 'fail' }}
-  #  runs-on: ubuntu-latest
-  #  environment: prod
-  #  needs: [deploy-stable]
-  #  steps:
-  #    - name: Deploy to prod
-  #      run: echo Pushing to prod $KNY_VAR ${{ vars.KNY_VAR }}
+      - name: 'Deploy'
+        run: | 
+          cat version.json
+          echo "NOWPROD=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      - run: echo $NOWPROD
