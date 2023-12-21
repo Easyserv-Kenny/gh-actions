@@ -35,7 +35,7 @@ jobs:
           name: ${{ env.BUILD_NAME }}
           path: deploy/*
     
-      - run: gh workflow run manual-deploy.yml -f build=${{ env.BUILD_VERSION }} -f enviroment=unstable
+      - run: gh workflow run manual-deploy.yml -f build=${{ env.BUILD_VERSION }} -f environment=unstable
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
