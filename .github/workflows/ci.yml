@@ -37,5 +37,4 @@ jobs:
     
       - run: gh workflow run manual-deploy.yml -f build=${{ env.BUILD_NAME }} -f environment=unstable
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
