@@ -6,7 +6,7 @@ env:
 
 on:
   workflow_run:
-    workflows: [Build]
+    workflows: [ci.yml]
     types: [completed]
 
 jobs:
