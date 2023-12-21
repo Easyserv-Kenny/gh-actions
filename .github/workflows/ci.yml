@@ -32,3 +32,8 @@ jobs:
         with:
           name: ${{ env.BUILD_NAME }}
           path: deploy/*
+
+  call-workflow-passing-data:
+    uses: Easyserv-Kenny/gh-actions/.github/workflows/create-deployment.yml@main
+    with:
+      awesome: Hello world awesome
