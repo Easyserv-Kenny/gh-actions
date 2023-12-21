@@ -38,3 +38,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: gh workflow run manual-deploy.yml -f build=${{ env.BUILD_VERSION }} -f enviroment=unstable
+    env:
+      GH_TOKEN: ${{ github.token }}
