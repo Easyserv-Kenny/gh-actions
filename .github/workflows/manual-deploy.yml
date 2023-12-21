@@ -38,11 +38,9 @@ jobs:
         id: create_deployment
         uses: chrnorm/deployment-action@v2
         with:
-          owner: ${{ github.actor }}
           ref: ${{ fromJson(env.PACKAGE_JSON).sha1 }}
           token: ${{ secrets.GITHUB_TOKEN }}
           environment: ${{ github.event.inputs.environment }}
-          description: 'Testing description as well, will it work?'
 
       - name: Deploy
         run: echo Deploy deploy
@@ -51,11 +49,9 @@ jobs:
         if: success()
         uses: chrnorm/deployment-status@v2
         with:
-          owner: ${{ github.actor }}
           token: ${{ github.token }}
           deployment-id: ${{ steps.create_deployment.outputs.deployment_id }}
           state: 'success'
-          description: 'Testing description as well, will it work?'
 
       - name: Update deployment status (failure)
         if: failure()
