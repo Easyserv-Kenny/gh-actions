@@ -1,0 +1,52 @@
+name: ESP32 Builder
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+    inputs:
+      WORKFLOW_BUILD_TYPE:
+        description: 'Build type'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+        - development
+        - production
+      WORKFLOW_UPLOAD_TO_S3:
+        description: 'Upload to S3?'
+        required: true
+        type: bool
+        default: false
+
+env:
+  DEFAULT_BUILD_TYPE: development
+  DEFAULT_UPLOAD_TO_S3: true
+
+jobs:
+  build:
+    name: Test test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set environment variables
+        id: Set_variables
+        run: |
+          echo "${{ github.event.inputs.WORKFLOW_BUILD_TYPE }}"
+          echo "${{ env.DEFAULT_BUILD_TYPE }}"
+          echo "${{ github.event.inputs.WORKFLOW_UPLOAD_TO_S3 }}"
+          echo "${{  env.DEFAULT_UPLOAD_TO_S3 }}"
+          echo "BUILD_TYPE=${{ github.event.inputs.WORKFLOW_BUILD_TYPE || env.DEFAULT_BUILD_TYPE }}" >> $GITHUB_ENV
+          echo "UPLOAD_TO_S3=${{ github.event.inputs.WORKFLOW_UPLOAD_TO_S3 || env.DEFAULT_UPLOAD_TO_S3 }}" >> $GITHUB_ENV
+          echo "${{ env.BUILD_TYPE }}"
+          echo "${{ env.UPLOAD_TO_S3 }}"
+  
+      - name: Use environment variables
+        run: |
+          echo "${{ env.BUILD_TYPE }}"
+          echo "${{ env.UPLOAD_TO_S3 }}"
+
+      - name: Upload to S3
+        if: env.UPLOAD_TO_S3 == true
+        run: echo "Uploading to S3"
